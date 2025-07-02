@@ -17,3 +17,8 @@ module "ec2" {
   vpc_id        = module.vpc.vpc_id
   name          = "TerraformEC2"
 }
+
+module "s3" {
+  source = "/modules/s3"
+  bucket_name = "terraform-demo-bucket"
+}
