@@ -6,7 +6,11 @@ provider "aws" {
   alias = "use1"
   region = "ap-south-1"
 }
- 
+
+resource "random_id" "bucket_suffix" {
+  byte_length = 4
+} 
+
 module "vpc" {
   source            = "./modules/vpc"
   vpc_cidr = "10.0.0.0/16"
@@ -25,7 +29,7 @@ module "ec2" {
 
 module "s3" {
   source = "./modules/s3"
-  bucket_name = "terraform-demo-bucket"
+  bucket_name = "terraform-jayant-${random_id.bucket_suffix.hex}"
   providers = {
     aws = aws.use1
   }
